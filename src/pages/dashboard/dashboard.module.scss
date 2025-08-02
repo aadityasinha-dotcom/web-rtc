@@ -1,0 +1,91 @@
+@use '../../../styles/colors.module.scss';
+@use '../../../styles/mixins/text.module';
+@use '../../../styles/mixins/button.module';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+.container {
+  :global .main-body {
+    width: 100%;
+    margin-left: 0%;
+    .main-body-header {
+      position: sticky;
+      top: 80px;
+      background-color: #ffffff;
+      z-index: 1;
+      .filters {
+        display: none;
+        justify-content: space-between;
+        background-color: #fafafa;
+        margin: 5px -12px;
+        padding: 12px;
+        p {
+          margin-bottom: 0;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 24px;
+        }
+        p.heading {
+          color: colors.$black;
+        }
+        p.applied {
+          color: colors.$blue;
+        }
+        p.clear-filter {
+          color: colors.$red;
+          cursor: pointer;
+        }
+      }
+    }
+    /* .body-content { */
+    /*   display: flex; */
+    /*   .body-container { */
+    /*     width: 75%; */
+    /*     margin-left: 27%; */
+    /*   } */
+    /* } */
+  }
+  :global .stats {
+    width: 100%;
+    gap: 20%;
+    /* margin-left: 400px; */
+  }
+  :global .pagination-container {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    bottom: 0;
+    background-color: #ffffff;
+    padding: 20px 0;
+    .arrow-last {
+      transform: rotate(180deg);
+    }
+    .pagination-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      text-align: center;
+      border: 1px solid colors.$grey-5;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: colors.$grey-8;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .pagination-item.disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .pagination-item.disabled:hover {
+      border-color: colors.$grey-5;
+    }
+    .pagination-item.active,
+    .pagination-item:hover {
+      border-color: colors.$theme;
+    }
+  }
+}
+

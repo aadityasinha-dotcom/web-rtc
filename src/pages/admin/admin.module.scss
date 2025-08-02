@@ -1,0 +1,111 @@
+@use '../../../styles/colors.module.scss';
+@use '../../../styles/mixins/text.module';
+@use '../../../styles/mixins/button.module';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+.listCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  min-height: 5px;
+  min-width: 5px;
+  margin-top: 8px;
+  margin-left: 80px;
+  margin-right: 100px;
+  background: colors.$white;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  :global .main-body {
+    width: 80%;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 1;
+  }
+  :global .detail {
+    width: 80%;
+  }
+  :global .table-container {
+    height: 500px;
+    width: 125%;
+    overflow-y: auto;
+  }
+}
+
+.tableCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  min-width: 5px;
+  height: 600px;
+  margin-top: 8px;
+  margin-left: 80px;
+  margin-right: 100px;
+  background: colors.$white;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  :global .main-body {
+    width: 80%;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    z-index: 1;
+  }
+  :global .detail {
+    width: 80%;
+  }
+  :global .table-container {
+    height: 500px;
+    overflow-y: auto;
+  }
+}
+
+.authModalContainer {
+  :global .modal-dialog {
+    .modal-content {
+      min-height: 500px;
+      .header {
+        padding: 25px;
+        .heading {
+          font-weight: 400;
+          font-size: 38px;
+          line-height: 46px;
+          color: colors.$black;
+          margin-top: 60px;
+        }
+        .cancelBtn {
+          position: absolute;
+          right: 25px;
+          top: 25px;
+          cursor: pointer;
+        }
+        .circle {
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width:375px) {
+  .authModalContainer {
+    :global .modal-dialog {
+      .modal-content {
+        .header {
+          padding: 15px;
+        }
+      }
+    }
+  }
+}
+

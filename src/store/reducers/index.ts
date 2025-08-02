@@ -1,13 +1,31 @@
 import { combineReducers } from 'redux';
-import { authReducer } from './auth.reducer';
-import { meetingReducer } from './meeting.reducer';
-import { transcriptionReducer } from './transcription.reducer';
+import { AppActionType } from 'store/action-types/app.types';
+import appReducers from './app.reducers';
+import profileReducers from './profile.reducer';
+import jobReducers from './job.reducers';
+import footerReducers from './footer.reducers';
+import skillReducers from './skill.reducers';
+import resumeReducers from './resume.reducers';
 
-export const rootReducer = combineReducers({
-  auth: authReducer,
-  meeting: meetingReducer,
-  transcription: transcriptionReducer,
+const reducers = combineReducers({
+  app: appReducers,
+  profile: profileReducers,
+  job: jobReducers,
+  footer: footerReducers,
+  skill: skillReducers,
+  resume: resumeReducers
 });
 
-export type RootState = ReturnType<typeof rootReducer>;
+// type Action = {
+//   type: any;
+//   payload?: any;
+// };
 
+export type RootState = ReturnType<typeof reducers>;
+
+export default (state: RootState | undefined, action: any) => {
+  if (action.type === AppActionType.LOGOUT) {
+    state = undefined;
+  } else state = state;
+  return reducers(state, action);
+};
