@@ -2,7 +2,7 @@ import { Tokens } from "shared/constants/url.constant";
 import {
   FooterAction,
   FooterActionType,
-} from "store/action-types/footer.types";
+} from "../action-types/footer.types";
 export interface FooterInitialState {
   isLoading: boolean;
   termsandConditions: string;

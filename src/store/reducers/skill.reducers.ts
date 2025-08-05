@@ -3,7 +3,7 @@ import {
   ISkillResult,
   ITestTopic,
 } from 'shared/interfaces/skill.interface';
-import { SkillAction, SkillActionType } from 'store/action-types/skill.types';
+import { SkillAction, SkillActionType } from '../action-types/skill.types';
 
 export interface IAssessmentInitialState {
   isLoading: boolean;

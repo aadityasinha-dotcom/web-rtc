@@ -1,0 +1,48 @@
+/* @use '../../../../styles/colors.module.scss'; */
+/* @use '../../../../styles/mixins/text.module'; */
+/* @use '../../../../styles/mixins/button.module'; */
+/* @import '~bootstrap/scss/mixins/_breakpoints'; */
+
+/* .paginationContainer { */
+/*     display: flex; */
+/*     justify-content: center; */
+/*     position: fixed; */
+/*     bottom: 0; */
+/*     background-color: #ffffff; */
+/*     padding: 20px 0; */
+/*     .arrow-last { */
+/*       transform: rotate(180deg); */
+/*     } */
+/*     .pagination-item { */
+/*       display: flex; */
+/*       align-items: center; */
+/*       justify-content: center; */
+/*       width: 30px; */
+/*       height: 30px; */
+/*       margin: 5px; */
+/*       text-align: center; */
+/*       border: 1px solid colors.$grey-5; */
+/*       font-weight: 500; */
+/*       font-size: 14px; */
+/*       line-height: 22px; */
+/*       color: colors.$grey-8; */
+/*       border-radius: 4px; */
+/*       cursor: pointer; */
+/*     } */
+/*     .pagination-item.disabled { */
+/*       opacity: 0.6; */
+/*       pointer-events: none; */
+/*     } */
+/*     .pagination-item.disabled:hover { */
+/*       border-color: colors.$grey-5; */
+/*     } */
+/*     .pagination-item.active, */
+/*     .pagination-item:hover { */
+/*       border-color: colors.$theme; */
+/*     } */
+/*     .pagination-item.selected { */
+/*       color: #000000; // Highlight as black */
+/*       border-color: #000000; // Optional: Add a black border */
+/*       background-color: colors.$grey-1; // Optional: Add a light background for better visibility */
+/*     } */
+/*   } */

@@ -1,0 +1,27 @@
+@use '../../../../styles/colors.module.scss';
+@use '../../../../styles/mixins/text.module';
+@use '../../../../styles/mixins/button.module';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+.sessionExpiredModalContainer {
+  :global .modal-dialog {
+    .modal-content {
+      min-height: 250px;
+      .header {
+        padding: 40px;
+        .heading {
+          font-weight: 400;
+          font-size: 38px;
+          line-height: 46px;
+          color: colors.$black;
+        }
+        .cancel-btn {
+          float: right;
+          background-color: colors.$theme;
+          border-color: colors.$theme;
+          color: colors.$white;
+        }
+      }
+    }
+  }
+}

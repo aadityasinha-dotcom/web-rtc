@@ -1,0 +1,63 @@
+.autocompleteContainer {
+    position: relative;
+    :global .options {
+      position: absolute;
+      max-height: 225px;
+      width: 100%;
+      overflow-y: scroll;
+      background-color: #ffffff;
+      border: 1px solid #bababa;
+      border-radius: 4px;
+      .option,
+      .no-option {
+        padding: 10px;
+      }
+      .option:hover {
+        background-color: #dcdcdc;
+        cursor: pointer;
+      }
+    }
+    :global .options::-webkit-scrollbar {
+      display: none;
+    }
+    :global .options {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+  .inputFieldGroup {
+    :global label {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      color: #061178;
+      margin-bottom: 8px;
+    }
+  }
+  .inputField {
+    border: 1px solid #8c8c8c;
+    border-radius: 4px;
+    min-height: 40px;
+    display: flex;
+    :global input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: flex;
+      margin: auto;
+      margin-left: 10px;
+    }
+    :global .clear-icon {
+      width: 12px;
+      margin: 0 15px;
+      cursor: pointer;
+    }
+    :global .inputSuffix {
+        display: flex;
+        margin-right: 12px;
+    }
+  }
+  .inputField:focus-within {
+    border-color: #061178;
+  }
+  

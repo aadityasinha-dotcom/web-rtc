@@ -24,11 +24,11 @@ import {
   getAdminCaptchaApi,
   getUserLogsApi,
   getUserDetailsApi,
-} from 'core/api/app.api';
+} from '../../core/api/app.api';
 import Router from 'next/router';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { AppAction, AppActionType } from 'store/action-types/app.types';
+import { AppAction, AppActionType } from '../../store/action-types/app.types';
 
 export const register: AppAction = {
   type: AppActionType.REGISTER,

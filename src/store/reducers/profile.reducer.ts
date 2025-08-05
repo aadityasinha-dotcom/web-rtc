@@ -1,7 +1,7 @@
 import {
   ProfileAction,
   ProfileActionType,
-} from 'store/action-types/profile.types';
+} from '../action-types/profile.types';
 
 export interface PortFolioFormState {
   network: string;

@@ -1,0 +1,23 @@
+@use '../../../../styles/colors.module.scss';
+@use '../../../../styles/mixins/text.module';
+@use '../../../../styles/mixins/button.module';
+@import '~bootstrap/scss/mixins/_breakpoints';
+
+.authModalContainer {
+  :global .modal-dialog {
+    .modal-content {
+      min-height: 500px;
+      padding: 0 15px;
+    }
+  }
+}
+
+@media screen and (max-width:375px) {
+  .authModalContainer {
+    :global .modal-dialog {
+      .modal-content {
+      padding: 0 15px;
+      }
+    }
+  }
+}

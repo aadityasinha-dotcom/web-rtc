@@ -2,7 +2,7 @@ import { IResumeDetail } from 'shared/interfaces/resume.interface';
 import {
   ResumeAction,
   ResumeActionType,
-} from 'store/action-types/resume.types';
+} from '../action-types/resume.types';
 
 export interface IResumeInitialState {
   resumeData: any;

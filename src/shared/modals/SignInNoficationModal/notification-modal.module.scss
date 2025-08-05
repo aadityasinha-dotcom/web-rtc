@@ -1,0 +1,45 @@
+@use "../../../../styles/colors.module.scss";
+@use "../../../../styles/mixins/text.module";
+@use "../../../../styles/mixins/button.module";
+@import "~bootstrap/scss/mixins/_breakpoints";
+
+.authModalContainer {
+  :global .modal-dialog {
+    .modal-content {
+      min-height: 500px;
+      .header {
+        padding: 25px;
+        .heading {
+          font-weight: 400;
+          font-size: 38px;
+          line-height: 46px;
+          color: colors.$black;
+          margin-top: 60px;
+        }
+        .cancelBtn {
+          position: absolute;
+          right: 25px;
+          top: 25px;
+          cursor: pointer;
+        }
+        .circle {
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .authModalContainer {
+    :global .modal-dialog {
+      .modal-content {
+        .header {
+          padding: 15px;
+        }
+      }
+    }
+  }
+}

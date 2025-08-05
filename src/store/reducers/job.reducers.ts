@@ -1,4 +1,4 @@
-import { JobAction, JobActionType } from 'store/action-types/job.types';
+import { JobAction, JobActionType } from '../action-types/job.types';
 
 export interface ProfileInitialState {
   isLoading: boolean;

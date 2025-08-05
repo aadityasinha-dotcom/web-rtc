@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { AppActionType } from 'store/action-types/app.types';
+import { AppActionType } from '../action-types/app.types';
 import appReducers from './app.reducers';
 import profileReducers from './profile.reducer';
 import jobReducers from './job.reducers';

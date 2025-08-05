@@ -1,5 +1,5 @@
-import { Tokens } from 'shared/constants/url.constant';
-import { AppAction, AppActionType } from 'store/action-types/app.types';
+import { Tokens } from '../../shared/constants/url.constant';
+import { AppAction, AppActionType } from '../../store/action-types/app.types';
 import moment from 'moment';
 import { forgotPassword } from 'store/actions/app.actions';
 

@@ -7,12 +7,10 @@ import SessionExpiredModal from 'shared/modals/SessionExpiredModal';
 import Footer from './Footer';
 import LoggedInHeader from './Header/LoggedInHeader';
 import NotLoggedInHeader from './Header/NotLoggedInHeader';
-import { AppActionType } from 'store/action-types/app.types';
-import ToastComponent from 'components/ToastComponent';
+import { AppActionType } from '../store/action-types/app.types';
 import { Tokens } from 'shared/constants/url.constant';
 import { Col, Container, Row } from 'react-bootstrap';
-import Sidebar from './Sidebar';
-import { logoutAction } from 'store/actions/app.actions';
+import { logoutAction } from '../store/actions/app.actions';
 
 const bodyStyle = {
   filter: 'blur(4px)'
@@ -46,46 +44,6 @@ const Layout = ({ children }: any) => {
   const [isSessionExpiredPopupOpen, setSessionExpiredPopupState] =
     useState(false);
 
-  Router.events.on('routeChangeComplete', (route) => {
-    setStaticPage(staticPages.includes(route) ? true : false);
-  });
-
-  useEffect(() => {
-    setActiveLink(router.asPath);
-  }, [router.asPath]);
-
-  useEffect(() => {
-    const isRouteStatic = staticPages.includes(Router.route);
-    setStaticPage(isRouteStatic ? true : false);
-  }, []);
-
-  useEffect(() => {
-    if (authToken) setMinimized(false);
-    else setMinimized(true);
-  }, [authToken]);
-
-  // useEffect(() => {
-  //   if (!authToken) dispatch({ type: AppActionType.OPEN_SIGNIN_MODAL });
-  // }, []);
-
-  useEffect(() => {
-    if (sessionExpired) setSessionExpiredPopupState(true);
-  }, [sessionExpired]);
-
-  // This effect used to compare login time and current time. Logout after 30 min
-  useEffect(() => {
-    if (!t) return;
-    setTimeout(() => setCurrentTimestamp(moment().unix()), 1000);
-    const diffTimeInSeconds = currentTimestamp - Number(t);
-    if (isSessionExpiredPopupOpen || diffTimeInSeconds < maxTimeInSeconds)
-      return;
-    logoutonSessionExpire();
-  }, [currentTimestamp, t]);
-
-  useEffect(() => {
-    if (profileData && !isAccountVerified) setAccountVerified(false);
-    else (setAccountVerified(true));
-  }, [profileData, isAccountVerified]);
 
   const logoutonSessionExpire = () => {
     localStorage.clear();
@@ -97,48 +55,13 @@ const Layout = ({ children }: any) => {
     });
   };
 
-  const onSessionExpiredSignInButtonClick = () => {
-    dispatch({ type: AppActionType.OPEN_SIGNIN_MODAL });
-  };
-
-  const renderLoggedInHeader = (authToken: string, isStaticPage: boolean) => {
-    if (!authToken) return null;
-    if (!isStaticPage) return <LoggedInHeader />;
-    return null;
-  };
-
-  const renderNotLoggedInHeader = (isStaticPage: boolean) => {
-    if (isStaticPage) return <NotLoggedInHeader />;
-    return null;
-  };
-
-  const renderFooter = (authToken: string, isStaticPage: boolean) => {
-    if (!authToken || isStaticPage) return <Footer />;
-    return null;
-  };
 
   return (
     <div style={!accountVerified ? bodyStyle : {}}>
-      {sessionExpired && (
-        <SessionExpiredModal
-          openModal={isSessionExpiredPopupOpen}
-          setOpenModal={() => onSessionExpiredSignInButtonClick()}
-        />
-      )}
-      {renderLoggedInHeader(authToken, isStaticPage)}
-      {renderNotLoggedInHeader(isStaticPage)}
       {!minimized && activeLink !== '/' ? (
         <>
           <Container fluid>
             <Row style={{marginTop: '80px'}}>
-              <Col md={2} sm={0} style={{marginTop: '40px'}}>
-                <Sidebar 
-                  activeLink={activeLink} 
-                  setActiveLink={setActiveLink}
-                  sidebarMinimized={sidebarMinimized}
-                  setSidebarMinimized={setSidebarMinimized}
-                />
-              </Col>
               <Col 
                 md={10} 
                 sm={12} 
@@ -159,7 +82,7 @@ const Layout = ({ children }: any) => {
           </Row>
         </>
       )}
-      <ToastComponent />
+      {/* <ToastComponent /> */}
       {/* {renderFooter(authToken, isStaticPage)} */}
     </div>
   );

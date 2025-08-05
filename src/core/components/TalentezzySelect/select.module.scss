@@ -1,0 +1,225 @@
+.selectContainer {
+  position: relative;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.selectFieldGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.selectLabel {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #061178;
+  margin-bottom: 8px;
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectField {
+  border: 1px solid #d4d4d8;
+  border-radius: 6px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+  &:hover {
+    border-color: #a5b4fc;
+  }
+  
+  &:focus-within {
+    border-color: #061178;
+    box-shadow: 0 0 0 2px rgba(6, 17, 120, 0.1);
+  }
+}
+
+.selectInput {
+  flex: 1;
+  height: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  color: #1f2937;
+  outline: none;
+  cursor: pointer;
+  
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+.selectControls {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.defaultCaret {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  
+  img {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.2s ease;
+  }
+}
+
+.caretRotated {
+  transform: rotate(180deg);
+}
+
+.optionsDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  margin-top: 2px;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 3px;
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  transition: background-color 0.15s ease;
+  position: relative;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #f9fafb;
+  }
+  
+  &:active {
+    background-color: #f3f4f6;
+  }
+}
+
+.selected {
+  background-color: #eef2ff;
+  
+  &:hover {
+    background-color: #e0e7ff;
+  }
+}
+
+.noOption {
+  padding: 12px 16px;
+  color: #6b7280;
+  font-style: italic;
+  text-align: center;
+}
+
+.prefixElement {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.optionLabel {
+  flex: 1;
+  font-size: 14px;
+  color: #111827;
+}
+
+.suffixElement {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+}
+
+.checkmark {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* All styles converted to local classes */
+.inputPrefix {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  color: #6b7280;
+}
+
+.clearIcon {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  opacity: 0.6;
+  margin: 0 8px;
+  transition: opacity 0.2s ease;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.inputSuffix {
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.caretGroup {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #d1d5db;
+}
+
+.caretUp,
+.caretDown {
+  width: 24px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+  
+  &:hover {
+    background-color: #f3f4f6;
+  }
+  
+  img {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.caretUp {
+  border-bottom: 1px solid #d1d5db;
+}
