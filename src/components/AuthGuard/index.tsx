@@ -6,7 +6,7 @@ import { RootState } from 'store/reducers';
 
 const AuthGuard = ({ children }) => {
   const router = useRouter();
-  const { authToken } = useSelector((state: RootState) => state.app);
+  const { authToken } = useSelector((state: RootState) => state.auth);
   const protectedRoutes = ['/profile', '/my-resume', '/dashboard'];
   const unProtectedRoutes = ['/'];
 

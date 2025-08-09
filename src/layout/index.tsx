@@ -32,9 +32,8 @@ const Layout = ({ children }: any) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { authToken, sessionExpired, t } = useSelector(
-    (state: RootState) => state.app
+    (state: RootState) => state.auth
   );
-  const { isAccountVerified, profileData } = useSelector((state: RootState) => state.profile);
   const [accountVerified, setAccountVerified] = useState(true);
   const [activeLink, setActiveLink] = useState(router.asPath);
   const [isStaticPage, setStaticPage] = useState(false);
