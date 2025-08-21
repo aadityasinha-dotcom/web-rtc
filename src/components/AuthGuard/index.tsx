@@ -16,12 +16,6 @@ const AuthGuard = ({ children }) => {
     }
   }, [authToken, router.pathname]);
 
-  useEffect(() => {
-    if (authToken && unProtectedRoutes.includes(router.pathname)) {
-      router.push('/profile');
-    }
-  }, [authToken, router.pathname]);
-
   return <>{children}</>;
 };
 
