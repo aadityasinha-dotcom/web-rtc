@@ -1,0 +1,51 @@
+@use '../colors.module.scss';
+@mixin theme-btn-sm {
+    height: 40px;
+    border-radius: 4px;
+    background-color: colors.$theme;
+}
+@mixin theme-btn-md {
+}
+@mixin theme-btn-lg {
+}
+@mixin theme-outlined-btn-sm {
+    height: 40px;
+    border-radius: 4px;
+    color: colors.$white;
+    border: 1px solid colors.$white;
+    background-color: colors.$theme;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 10px;
+    padding: 0 20px;
+}
+@mixin theme-outlined-btn-md {
+}
+@mixin theme-outlined-btn-lg {
+}
+
+@mixin white-btn-sm {
+}
+
+@mixin white-outlined-btn-sm {
+    height: 40px;
+    border-radius: 4px;
+    color: colors.$theme;
+    border: 1px solid colors.$white;
+    background-color: colors.$white;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 10px;
+    padding: 0 20px;
+}
+
+@mixin outlined-btn-sm {
+}
+
+// @mixin white-btn-lg {
+// }
+
+// @mixin outlined-btn-lg {
+// }

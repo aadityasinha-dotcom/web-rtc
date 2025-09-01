@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from "@/components/ui/button"
 
 const ControlPanel = () => {
   return (
@@ -10,9 +11,9 @@ const ControlPanel = () => {
       justifyContent: 'center',
       gap: '15px'
     }}>
-      <button style={{ padding: '10px 20px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px' }}>
+      <Button>
         🎤 Mute
-      </button>
+      </Button>
       <button style={{ padding: '10px 20px', backgroundColor: '#2196F3', color: 'white', border: 'none', borderRadius: '5px' }}>
         📹 Video
       </button>
