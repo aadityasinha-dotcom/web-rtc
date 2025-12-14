@@ -1,0 +1,131 @@
+/* Control Panel Wrapper with Glassmorphism Effect */
+.control-panel-wrapper {
+  @apply fixed bottom-0 left-0 right-0 z-50 pb-6 px-4;
+  @apply flex justify-center items-center;
+}
+
+.control-panel-container {
+  @apply flex items-center justify-center gap-3 md:gap-4;
+  @apply px-6 py-4 rounded-2xl;
+  @apply backdrop-blur-xl bg-gray-900/80 border border-gray-700/50;
+  @apply shadow-2xl shadow-black/50;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.control-panel-container:hover {
+  @apply bg-gray-900/90 border-gray-600/60;
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* Control Button Base Styles */
+.control-button {
+  @apply flex flex-col items-center justify-center;
+  @apply h-auto min-w-[72px] p-4 gap-2;
+  @apply rounded-xl transition-all duration-300;
+  @apply hover:scale-105 active:scale-95;
+  position: relative;
+  overflow: hidden;
+}
+
+.control-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.control-button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Button Icon Container */
+.control-button-icon {
+  @apply transition-transform duration-300;
+}
+
+.control-button:hover .control-button-icon {
+  transform: scale(1.15);
+}
+
+/* Button Label */
+.control-button-label {
+  @apply text-xs font-medium;
+  @apply transition-all duration-300;
+}
+
+/* Active State - Red (Muted/Recording) */
+.control-button-active-red {
+  @apply bg-red-600 hover:bg-red-700 text-white;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+
+.control-button-active-red:hover {
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+}
+
+/* Active State - Blue (Screen Sharing) */
+.control-button-active-blue {
+  @apply bg-blue-600 hover:bg-blue-700 text-white;
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+}
+
+.control-button-active-blue:hover {
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.6);
+}
+
+/* End Call Special Styling */
+.control-button-end-call {
+  @apply bg-red-600 hover:bg-red-700;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.5);
+}
+
+.control-button-end-call:hover {
+  @apply bg-red-700;
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.7);
+}
+
+/* Phone Icon Rotation */
+.rotate-135 {
+  transform: rotate(135deg);
+  transition: transform 0.3s ease;
+}
+
+.control-button-end-call:hover .rotate-135 {
+  transform: rotate(135deg) scale(1.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .control-panel-container {
+    @apply px-3 py-3 gap-2;
+  }
+  
+  .control-button {
+    @apply min-w-[64px] p-3 gap-1;
+  }
+  
+  .control-button-label {
+    @apply text-[10px];
+  }
+}
+
+/* Animation for Recording Button Pulse */
+@keyframes recording-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
