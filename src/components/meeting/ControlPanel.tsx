@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Video, VideoOff, ScreenShare, ScreenShareOff, PhoneOff, Circle, Square } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import styles from './ControlPanel.module.css';
 
 interface ControlPanelProps {
   isMuted: boolean;
@@ -27,23 +28,20 @@ const ControlPanel = ({
   onEndCall
 }: ControlPanelProps) => {
   return (
-    <div className="control-panel-wrapper">
-      <div className="control-panel-container">
+    <div className={styles.controlPanelWrapper}>
+      <div className={styles.controlPanelContainer}>
         
         {/* Mute/Unmute Button */}
         <Button
           onClick={onToggleMute}
           variant={isMuted ? "destructive" : "secondary"}
           size="lg"
-          className={cn(
-            "control-button",
-            isMuted && "control-button-active-red"
-          )}
+          className={cn(styles.controlButton, isMuted && styles.controlButtonActiveRed)}
         >
-          <div className="control-button-icon">
+          <div className={styles.controlButtonIcon}>
             {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
           </div>
-          <span className="control-button-label">{isMuted ? 'Unmute' : 'Mute'}</span>
+          <span className={styles.controlButtonLabel}>{isMuted ? 'Unmute' : 'Mute'}</span>
         </Button>
 
         {/* Video On/Off Button */}
@@ -51,15 +49,12 @@ const ControlPanel = ({
           onClick={onToggleVideo}
           variant={isVideoOff ? "destructive" : "secondary"}
           size="lg"
-          className={cn(
-            "control-button",
-            isVideoOff && "control-button-active-red"
-          )}
+          className={cn(styles.controlButton, isVideoOff && styles.controlButtonActiveRed)}
         >
-          <div className="control-button-icon">
+          <div className={styles.controlButtonIcon}>
             {isVideoOff ? <VideoOff className="h-6 w-6" /> : <Video className="h-6 w-6" />}
           </div>
-          <span className="control-button-label">{isVideoOff ? 'Start Video' : 'Stop Video'}</span>
+          <span className={styles.controlButtonLabel}>{isVideoOff ? 'Start Video' : 'Stop Video'}</span>
         </Button>
         
         {/* Share Screen Button */}
@@ -67,15 +62,12 @@ const ControlPanel = ({
           onClick={onToggleScreenShare}
           variant="secondary"
           size="lg"
-          className={cn(
-            "control-button hidden md:flex",
-            isScreenSharing && "control-button-active-blue"
-          )}
+          className={cn(styles.controlButton, "hidden md:flex", isScreenSharing && styles.controlButtonActiveBlue)}
         >
-          <div className="control-button-icon">
+          <div className={styles.controlButtonIcon}>
             {isScreenSharing ? <ScreenShareOff className="h-6 w-6" /> : <ScreenShare className="h-6 w-6" />}
           </div>
-          <span className="control-button-label">{isScreenSharing ? 'Stop Sharing' : 'Share Screen'}</span>
+          <span className={styles.controlButtonLabel}>{isScreenSharing ? 'Stop Sharing' : 'Share Screen'}</span>
         </Button>
         
         {/* Record Button */}
@@ -83,15 +75,12 @@ const ControlPanel = ({
           onClick={onToggleRecording}
           variant="secondary"
           size="lg"
-          className={cn(
-            "control-button hidden md:flex",
-            isRecording && "control-button-active-red animate-pulse"
-          )}
+          className={cn(styles.controlButton, "hidden md:flex", isRecording && styles.controlButtonActiveRed)}
         >
-          <div className="control-button-icon">
+          <div className={styles.controlButtonIcon}>
             {isRecording ? <Square className="h-6 w-6 fill-current" /> : <Circle className="h-6 w-6" />}
           </div>
-          <span className="control-button-label">{isRecording ? 'Stop' : 'Record'}</span>
+          <span className={styles.controlButtonLabel}>{isRecording ? 'Stop' : 'Record'}</span>
         </Button>
         
         {/* End Call Button */}
@@ -99,12 +88,12 @@ const ControlPanel = ({
           onClick={onEndCall}
           variant="destructive"
           size="lg"
-          className="control-button control-button-end-call"
+          className={cn(styles.controlButton, styles.controlButtonEndCall)}
         >
-          <div className="control-button-icon rotate-135">
+          <div className={cn(styles.controlButtonIcon, styles.rotate135)}>
             <PhoneOff className="h-6 w-6" />
           </div>
-          <span className="control-button-label">End Call</span>
+          <span className={styles.controlButtonLabel}>End Call</span>
         </Button>
 
       </div>
@@ -113,4 +102,3 @@ const ControlPanel = ({
 };
 
 export default ControlPanel;
-

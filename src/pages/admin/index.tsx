@@ -1,205 +1,131 @@
 import { NextPage } from 'next';
-import React, { useEffect, useState, useRef } from "react";
-// import { Amplify } from 'aws-amplify';
-// import awsExports from 'aws-exports';
-import { BarChart } from '@mui/x-charts/BarChart';
-import { Col, Container, Row, Modal } from 'react-bootstrap';
-import { useDispatch, useSelector } from "react-redux";
-import Pagination from "react-bootstrap/Pagination";
-import Table from 'react-bootstrap/Table';
-import WorldMap from "react-svg-worldmap";
-import UserLogsComponent from "components/AdminComponents/UserLogsComponent";
-import UserSessionComponent from "components/AdminComponents/UserSessionComponent";
-import UserDataComponent from "components/AdminComponents/UserDataComponent";
+import React, { useEffect, useState } from 'react';
+import { Col, Container, Modal, Row } from 'react-bootstrap';
+import Pagination from 'react-bootstrap/Pagination';
+import { useSelector } from 'react-redux';
 import styles from './admin.module.scss';
-import { getUserSessionAction, getUserLogsAction } from "store/actions/app.actions";
-import LoggedInHeader from 'layout/Header/LoggedInHeader';
-import AdminSigninComponent from 'components/AuthComponents/AdminSigninComponent';
-import SearchFilter from 'components/AdminComponents/FilterComponents';
-import DeleteUserComponent from 'components/AdminComponents/DeleteUserComponent';
-import PreLoginLogsComponent from 'components/AdminComponents/PreLoginLogsComponent';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ShieldCheck, Users, FileClock, Trash2, ClipboardList } from 'lucide-react';
 
-// Amplify.configure({ ...awsExports, ssr: true });
-//
 interface IAuthComponents {
   [key: string]: {
     heading: string;
-    component: any;
+    component: React.ReactNode;
   };
 }
 
+const PlaceholderCard = ({
+  title,
+  description,
+  icon: Icon,
+}: {
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+}) => (
+  <Card className={styles.placeholderCard}>
+    <CardContent className="flex items-start gap-4 p-6">
+      <div className={styles.placeholderIcon}>
+        <Icon className="h-5 w-5" />
+      </div>
+      <div>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
+    </CardContent>
+  </Card>
+);
+
 const AdminPage: NextPage = () => {
-  const dispatch = useDispatch();
-
-  const { adminAuthToken, userSessions, userLogs } = useSelector((state: any) => state.app);
-  const [selectedComponent, setSelectedComponent] = useState('');
+  const { adminAuthToken } = useSelector((state: any) => state.app);
+  const [selectedComponent, setSelectedComponent] = useState('USERSESSIONS');
   const [open, setOpen] = useState(adminAuthToken ? false : true);
-
-  const data = [
-    { country: "cn", value: 1389618778 }, // china
-    { country: "in", value: 1311559204 }, // india
-    { country: "us", value: 331883986 }, // united states
-    { country: "id", value: 264935824 }, // indonesia
-    { country: "pk", value: 210797836 }, // pakistan
-    { country: "br", value: 210301591 }, // brazil
-    { country: "ng", value: 208679114 }, // nigeria
-    { country: "bd", value: 161062905 }, // bangladesh
-    { country: "ru", value: 141944641 }, // russia
-    { country: "mx", value: 127318112 }, // mexico
-  ];
 
   useEffect(() => {
     if (adminAuthToken) setOpen(false);
   }, [adminAuthToken]);
 
-
   const adminComponents: IAuthComponents = {
     USERLOGS: {
       heading: 'User Logs',
-      component: (
-        <UserLogsComponent />
-      ),
+      component: <PlaceholderCard title="User logs" description="Audit events, sign-ins, and account changes." icon={FileClock} />,
     },
     USERSESSIONS: {
       heading: 'User Sessions',
-      component: (
-        <UserSessionComponent />
-      ),
+      component: <PlaceholderCard title="User sessions" description="Active and historical sessions across the platform." icon={Users} />,
     },
     USERDATA: {
       heading: 'User Details',
-      component: (
-        <UserDataComponent />
-      ),
+      component: <PlaceholderCard title="User details" description="Profile data and account metadata." icon={ClipboardList} />,
     },
-    DELETEUSER : {
+    DELETEUSER: {
       heading: 'Delete User',
-      component: (
-        <DeleteUserComponent />
-      ),
+      component: <PlaceholderCard title="Delete user" description="Review and remove an account when necessary." icon={Trash2} />,
     },
-    PRELOGINLOGS : {
+    PRELOGINLOGS: {
       heading: 'Pre Login Logs',
-      component: (
-        <PreLoginLogsComponent />
-      ),
+      component: <PlaceholderCard title="Pre-login logs" description="Track public access and unauthenticated activity." icon={ShieldCheck} />,
     },
   };
 
   return (
-    <>
-      <Container fluid>
-        <LoggedInHeader />
-        <Row sm={12} style={{ marginTop: '150px', marginLeft: '80px' }}>
-          <h1>Welcome to the Admin Page</h1>
-        </Row>
-        <Row>
-          <Pagination style={{ marginLeft: '100px', marginTop: '20px' }}>
-            <Pagination.Item 
-              key={'User Session'} 
-              onClick={() => {
-                setSelectedComponent('USERSESSIONS');
-              }}
-              active={selectedComponent === 'USERSESSIONS'}
+    <Container fluid className={styles.adminPage}>
+      <div className={styles.hero}>
+        <Badge className="rounded-full bg-blue-50 px-3 py-1 text-blue-700 hover:bg-blue-50">
+          Admin console
+        </Badge>
+        <h1>Welcome to the Admin Page</h1>
+        <p>Manage sessions, users, and logs in a cleaner Meet-style shell.</p>
+      </div>
+
+      <Row>
+        <Pagination className={styles.tabNav}>
+          {Object.entries(adminComponents).map(([key, value]) => (
+            <Pagination.Item
+              key={key}
+              onClick={() => setSelectedComponent(key)}
+              active={selectedComponent === key}
             >
-              {'User Sessions'}
+              {value.heading}
             </Pagination.Item>
-            <Pagination.Item 
-              key={'User Logs'} 
-              onClick={() => {
-                setSelectedComponent('USERLOGS');
-              }}
-              active={selectedComponent === 'USERLOGS'}
-            >
-              {'User Logs'}
-            </Pagination.Item>
-            <Pagination.Item 
-              key={'User DATA'} 
-              onClick={() => {
-                setSelectedComponent('USERDATA');
-              }}
-              active={selectedComponent === 'USERDATA'}
-            >
-              {'User Data'}
-            </Pagination.Item>
-            <Pagination.Item 
-              key={'Delete User'} 
-              onClick={() => {
-                setSelectedComponent('DELETEUSER');
-              }}
-              active={selectedComponent === 'DELTEUSER'}
-            >
-              {'Delete User'}
-            </Pagination.Item>
-            <Pagination.Item 
-              key={'Pre Login Logs'} 
-              onClick={() => {
-                setSelectedComponent('PRELOGINLOGS');
-              }}
-              active={selectedComponent === 'PRELOGINLOGS'}
-            >
-              {'Pre Login Logs'}
-            </Pagination.Item>
-          </Pagination>
-        </Row>
-        {adminAuthToken ? (
-          <>
-            <div
-              className={styles.listCard}
-            >
-              <div className='detail'>
-                {/* <Row sm={6} className='mb-3'> */}
-                  {/* <Col lg={6} md={12} sm={12} xs={12}> */}
-                  {/*   <WorldMap */}
-                  {/*     color="red" */}
-                  {/*     value-suffix="people" */}
-                  {/*     size="md" */}
-                  {/*     data={data} */}
-                  {/*   /> */}
-                  {/* </Col> */}
-                  {/* <Col lg={4} md={12} sm={12} xs={12} className={styles.listCard}> */}
-                  {/*   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}> */}
-                  {/*     <div className="chart-container"> */}
-                  {/*       <h2 style={{ textAlign: "center" }}>Bar Chart</h2> */}
-                  {/*       <BarChart */}
-                  {/*         series={[ */}
-                  {/*           { data: [35, 44, 24, 34] }, */}
-                  {/*         ]} */}
-                  {/*         height={290} */}
-                  {/*         xAxis={[{ data: ['Q1', 'Q2', 'Q3', 'Q4'], scaleType: 'band' }]} */}
-                  {/*         margin={{ top: 10, bottom: 30, left: 40, right: 10 }} */}
-                  {/*       /> */}
-                  {/*     </div> */}
-                  {/*   </div> */}
-                  {/* </Col> */}
-                {/* </Row> */}
-                <Row>
-                  {selectedComponent && adminComponents[selectedComponent].component}
-                </Row>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <Modal
-              show={open}
-              className={styles.authModalContainer}
-            >
-              <div className='header'>
-                <Row>
-                  <Col sm={8} md={8} lg={8}>
-                    <h5 className='heading'>
-                      Admin Login
-                    </h5>
-                  </Col>
-                </Row>
-                <AdminSigninComponent/>
-              </div>
-            </Modal>
-          </>
-        )}
-      </Container>
-    </>
+          ))}
+        </Pagination>
+      </Row>
+
+      {adminAuthToken ? (
+        <div className={styles.listCard}>
+          <div className="w-full">
+            {selectedComponent && adminComponents[selectedComponent].component}
+          </div>
+        </div>
+      ) : (
+        <Modal show={open} className={styles.authModalContainer}>
+          <div className={styles.authModalBody}>
+            <Row>
+              <Col sm={12}>
+                <h5 className={styles.authHeading}>Admin Login</h5>
+                <p className="mt-2 text-slate-600">
+                  Use the admin account to access user logs, session history, and moderation tools.
+                </p>
+              </Col>
+            </Row>
+            <Card className="mt-6 border-slate-200 bg-white/90">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg">Secure access</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+                  Admin sign-in UI is not wired in this repo, so this screen now stays self-contained and styled.
+                </div>
+                <Button className="rounded-full">Continue</Button>
+              </CardContent>
+            </Card>
+          </div>
+        </Modal>
+      )}
+    </Container>
   );
 };
 

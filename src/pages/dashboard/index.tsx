@@ -1,51 +1,23 @@
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import Sidebar from 'layout/Sidebar';
-import MainHeader from 'components/MainHeader';
-import LoggedInHeader from 'layout/Header/LoggedInHeader';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'store/reducers';
 import styles from './dashboard.module.scss';
-import DeleteProfileForm from 'components/DashboardComponents/Statistics';
-import JobListCard from 'components/JobSearchComponents/JobListCard';
-import { getUserDashboardAction } from "store/actions/profiles.actions";
-import {
-  getSavedJobListAction,
-  getSavedJobListIdsAction,
-} from 'store/actions/job.actions';
+import { getUserDashboardAction } from 'store/actions/profiles.actions';
+import { getSavedJobListAction, getSavedJobListIdsAction } from 'store/actions/job.actions';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Briefcase, CheckCircle2, Eye, FileText, MessageSquare, Sparkles } from 'lucide-react';
 
 const DashboardPage: NextPage = () => {
   const dispatch = useDispatch();
   const { profileData, userDashboard } = useSelector((state: RootState) => state.profile);
+  const { authToken } = useSelector((state: RootState) => state.app);
+  const { savedJobs } = useSelector((state: RootState) => state.job);
   const [selectedView, setView] = useState<string>('list');
-  const { authToken } = useSelector(
-    (state: RootState) => state.app
-  );
-  const { advancedFilters, savedJobs, jobs } = useSelector(
-    (state: RootState) => state.job
-  );
-  const isMobile: boolean =
-    typeof window !== 'undefined' && window.innerWidth <= 425;
-
-  const statistics_name = {
-    uploadUsed: 'Upload Used',
-    uploadsRemaining: 'Uploads Remaining',
-    totalUploads: 'Total Uploads',
-    totalMatchRateChecks: 'Total Match Rate',
-    matchRateRemaining: 'Match Rate Left',
-    mateRateChecksUsed: 'Match Rate Used',
-    savedJobs: 'Saved Jobs',
-  }
-
-  const image_url = {
-    applied_jobs: '/svg/send.svg',
-    shortlisted: '/svg/heart-b.svg',
-    review: '/svg/notification-b.svg',
-    views: '/svg/tag-b.svg',
-    unique_resumes: '/svg/resumes-b.svg',
-    tracked_interviews: '/svg/link-b.svg'
-  }
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 425;
 
   useEffect(() => {
     if (authToken) {
@@ -53,95 +25,91 @@ const DashboardPage: NextPage = () => {
       dispatch(getSavedJobListAction());
       dispatch(getSavedJobListIdsAction());
     }
-  }, [authToken]);
+  }, [authToken, dispatch]);
 
   useEffect(() => {
     if (isMobile) setView('grid');
   }, [isMobile]);
 
+  const stats = [
+    { label: 'Total uploads', value: userDashboard.totalUploads ?? 0, icon: FileText },
+    { label: 'Uploads used', value: userDashboard.uploadsUsed ?? 0, icon: Sparkles },
+    { label: 'Uploads remaining', value: userDashboard.uploadsRemaining ?? 0, icon: CheckCircle2 },
+    { label: 'Match rate checks', value: userDashboard.totalMatchRateChecks ?? 0, icon: MessageSquare },
+    { label: 'Match rate used', value: userDashboard.matchRateChecksUsed ?? 0, icon: Eye },
+    { label: 'Saved jobs', value: userDashboard.savedJobs ?? savedJobs?.length ?? 0, icon: Briefcase },
+  ];
+
   return (
-    <div style={{ marginTop: '10px', display: 'flex' }}>
+    <div className={styles.dashboardPage}>
       <Container fluid className={styles.container}>
-        <LoggedInHeader />
-        <Row>
-          <div className='main-body'>
-            <div className='main-body-header'>
-              <MainHeader
-                heading='Dashboard'
-                subHeading={`Profile Strength ${
-                  profileData.profileCompletion || '0%'
-                }`}
-              />
+        <div className={styles.pageHeader}>
+          <div className={styles.heroCard}>
+            <div>
+              <Badge className="rounded-full bg-blue-50 px-3 py-1 text-blue-700 hover:bg-blue-50">
+                Meet-style dashboard
+              </Badge>
+              <h1>Dashboard</h1>
+              <p>Profile strength {profileData.profileCompletion || '0%'} with a calmer Google Meet-inspired surface.</p>
             </div>
+            <Button className="rounded-full">
+              Refresh data
+            </Button>
           </div>
-          <div className='stats' style={{ display: "flex", flexWrap: "wrap" }}>
-            <Col lg={2} sm={12} md={6}>
-              <DeleteProfileForm
-                statistics_name={statistics_name.totalUploads}
-                image_url={''}
-                count={userDashboard.totalUploads}
-              />
-              <DeleteProfileForm
-                statistics_name={statistics_name.totalMatchRateChecks}
-                image_url={''}
-                count={userDashboard.totalMatchRateChecks}
-              />
-            </Col>
-            <Col lg={2} sm={12} md={6}>
-              <DeleteProfileForm
-                statistics_name={statistics_name.uploadUsed}
-                image_url={''}
-                count={userDashboard.uploadsUsed}
-              />
-              <DeleteProfileForm
-                statistics_name={statistics_name.mateRateChecksUsed}
-                image_url={''}
-                count={userDashboard.matchRateChecksUsed}
-              />
-            </Col>
-            <Col lg={2} sm={12} md={6}>
-              <DeleteProfileForm
-                statistics_name={statistics_name.uploadsRemaining}
-                image_url={''}
-                count={userDashboard.uploadsRemaining}
-              />
-              <DeleteProfileForm
-                statistics_name={statistics_name.matchRateRemaining}
-                image_url={''}
-                count={userDashboard.matchRateRemaining}
-              />
-            </Col>
+        </div>
+
+        <section className={styles.surfaceSection}>
+          <Row className={styles.statsRow}>
+            {stats.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <Col key={stat.label} lg={4} md={6} sm={12}>
+                  <Card className={styles.statCard}>
+                    <CardContent className="flex items-center gap-4 p-5">
+                      <div className={styles.statIcon}>
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-slate-500">{stat.label}</p>
+                        <p className="text-2xl font-semibold text-slate-900">{stat.value}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        </section>
+
+        <div className={styles.pageHeader}>
+          <div className={styles.sectionHeading}>
+            <h2>Saved jobs</h2>
+            <p>Your recent shortlisted roles and notes.</p>
           </div>
-        </Row>
-        <Row>
-          <div className='main-body'>
-            <div className='main-body-header'>
-              <MainHeader
-                heading='Saved Jobs'
-                subHeading=''
-              />
+        </div>
+
+        <section className={styles.surfaceSection}>
+          {savedJobs && savedJobs.length ? (
+            <div className={selectedView === 'grid' ? styles.jobGrid : styles.jobList}>
+              {savedJobs.map((job: any) => (
+                <Card key={job.id || job.title} className={styles.jobCard}>
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg">{job.title || 'Saved role'}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-slate-600">{job.company || 'Company name unavailable'}</p>
+                    <p className="mt-2 text-sm text-slate-500">{job.location || 'Remote-friendly role'}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-          <div className='jobs'>
-            <div className={styles.jobListContainer} style={{ marginRight: "150px" }}>
-              {savedJobs && savedJobs.length ? (
-                savedJobs.map((job: any, index: number) => (
-                  <JobListCard job={job} key={index} />
-                ))
-              ) : (
-                <div
-                  className='not-found'
-                  style={{ textAlign: 'center', margin: '15%' }}
-                >
-                  <img
-                    src='/svg/job-not-found.svg'
-                    alt='Jobs Not Found'
-                  />
-                </div>
-              )}
+          ) : (
+            <div className={styles.emptyState}>
+              <Briefcase className="h-10 w-10 text-slate-400" />
+              <p>No saved jobs yet.</p>
             </div>
-          </div>
-          </div>
-        </Row>
+          )}
+        </section>
       </Container>
     </div>
   );

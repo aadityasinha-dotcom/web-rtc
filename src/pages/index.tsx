@@ -26,33 +26,27 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen">
-      <div className="pt-20 space-y-8">
+    <div className="min-h-screen pb-40">
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 md:px-6 lg:py-8">
         <MeetingRoom />
-        
-        {/* Pass the dummy data directly to the ParticipantGrid */}
-        <ParticipantGrid participants={dummyParticipants} />
-
-        {/* Wire up the ControlPanel with local state */}
-        <div className="flex justify-center">
-            <ControlPanel
-              isMuted={isMuted}
-              isVideoOff={isVideoOff}
-              isScreenSharing={isScreenSharing}
-              isRecording={isRecording}
-              onToggleMute={() => setIsMuted(!isMuted)}
-              onToggleVideo={() => setIsVideoOff(!isVideoOff)}
-              onToggleScreenShare={() => setIsScreenSharing(!isScreenSharing)}
-              onToggleRecording={() => setIsRecording(!isRecording)}
-              onEndCall={handleEndCall}
-            />
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <ParticipantGrid participants={dummyParticipants} />
+          <TranscriptionPanel />
         </div>
-        
-        <TranscriptionPanel />
+        <ControlPanel
+          isMuted={isMuted}
+          isVideoOff={isVideoOff}
+          isScreenSharing={isScreenSharing}
+          isRecording={isRecording}
+          onToggleMute={() => setIsMuted(!isMuted)}
+          onToggleVideo={() => setIsVideoOff(!isVideoOff)}
+          onToggleScreenShare={() => setIsScreenSharing(!isScreenSharing)}
+          onToggleRecording={() => setIsRecording(!isRecording)}
+          onEndCall={handleEndCall}
+        />
       </div>
     </div>
   );
 };
 
 export default Home;
-

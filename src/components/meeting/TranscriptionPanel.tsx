@@ -1,46 +1,44 @@
 import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const TranscriptionPanel = () => {
   return (
-    <div style={{ padding: '20px', backgroundColor: '#f9f9f9', minHeight: '300px' }}>
-      <h3>Live Transcription</h3>
-      <div style={{ 
-        backgroundColor: 'white', 
-        padding: '15px', 
-        border: '1px solid #ddd', 
-        borderRadius: '5px',
-        marginTop: '10px',
-        maxHeight: '250px',
-        overflowY: 'auto'
-      }}>
-        <div style={{ marginBottom: '10px' }}>
-          <strong>John Doe (10:30 AM):</strong>
-          <p>Welcome everyone to today's meeting. Let's start with the agenda.</p>
+    <Card className="border-slate-200 bg-white/90 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur">
+      <CardHeader className="space-y-2">
+        <CardTitle className="text-lg font-semibold text-slate-900">Live transcription</CardTitle>
+        <p className="text-sm text-slate-500">Speaker labels and AI summary appear here in real time.</p>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="max-h-[320px] space-y-3 overflow-y-auto pr-1">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p className="text-sm font-medium text-slate-900">John Doe · 10:30 AM</p>
+            <p className="mt-1 text-sm text-slate-600">Welcome everyone to today's meeting. Let's start with the agenda.</p>
+          </div>
+          <div className="rounded-2xl border border-blue-100 bg-blue-50 p-4">
+            <p className="text-sm font-semibold text-blue-700">AI Summary</p>
+            <p className="mt-1 text-sm text-slate-700"><em>Meeting started with agenda discussion.</em></p>
+          </div>
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p className="text-sm font-medium text-slate-900">Jane Smith · 10:32 AM</p>
+            <p className="mt-1 text-sm text-slate-600">Thanks John. I'd like to discuss the quarterly results first.</p>
+          </div>
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p className="text-sm font-medium text-slate-900">Mike Johnson · 10:33 AM</p>
+            <p className="mt-1 text-sm text-slate-600">Sounds good. I have the presentation ready to share.</p>
+          </div>
         </div>
-        <div style={{ marginBottom: '10px', backgroundColor: '#f0f8ff', padding: '8px', borderRadius: '3px' }}>
-          <strong>AI Summary:</strong>
-          <p><em>Meeting started with agenda discussion</em></p>
+        <div className="flex flex-wrap gap-3">
+          <Button variant="outline" className="rounded-full">
+            Export transcript
+          </Button>
+          <Button className="rounded-full">
+            Generate summary
+          </Button>
         </div>
-        <div style={{ marginBottom: '10px' }}>
-          <strong>Jane Smith (10:32 AM):</strong>
-          <p>Thanks John. I'd like to discuss the quarterly results first.</p>
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <strong>Mike Johnson (10:33 AM):</strong>
-          <p>Sounds good. I have the presentation ready to share.</p>
-        </div>
-      </div>
-      <div style={{ marginTop: '15px', display: 'flex', gap: '10px' }}>
-        <button style={{ padding: '8px 16px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '3px' }}>
-          Export Transcript
-        </button>
-        <button style={{ padding: '8px 16px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '3px' }}>
-          Generate Summary
-        </button>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
 export default TranscriptionPanel;
-

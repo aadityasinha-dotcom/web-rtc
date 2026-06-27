@@ -5,22 +5,29 @@
 
 .authModalContainer {
   :global .modal-dialog {
+    max-width: 540px;
     .modal-content {
+      overflow: hidden;
+      border: none;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.18);
       min-height: 500px;
       .header {
-        padding: 25px;
+        padding: 28px;
         .heading {
-          font-weight: 400;
-          font-size: 38px;
-          line-height: 46px;
-          color: colors.$black;
-          margin-top: 60px;
+          font-weight: 600;
+          font-size: 30px;
+          line-height: 38px;
+          color: #0f172a;
+          margin-top: 58px;
         }
         .cancelBtn {
           position: absolute;
           right: 25px;
           top: 25px;
           cursor: pointer;
+          filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.12));
         }
         .circle {
           position: absolute;

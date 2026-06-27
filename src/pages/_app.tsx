@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { store } from '../store';
 import Layout from '../layout';
 import AuthGuard from '../components/AuthGuard';
+import '../styles/globals.scss';
 // import { Amplify } from 'aws-amplify';
 // import awsExports from 'aws-exports';
 
